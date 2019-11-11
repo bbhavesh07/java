@@ -61,8 +61,16 @@ public class Multithreading {
         //we can also pass some time to join() in ms. to add limit of waiting. if time is completed before completion of thread, current thread will move to ready state.
         mt.join(1000);
 
-        //the sleep() method can also be used to make a thread wait for some time.
-        mt.sleep(100);
+        //the sleep() method can also be used to make a currently running thread wait for some time.
+        //in calling of join or sleep, we need to take special care that threads doesn't go in deadlock.
+        //when main thread is calling join on t1 and t1 is calling join for main, then the deadlock will occur.
+        //when main thread calls join on himself, deadlock will occur.
+        Thread.sleep(100);
+
+        //Interrupting thread. When a thread is in sleep() you can interrupt it. that means it will go to ready state(from wait/sleep state)
+        //The loophole here is if the thread is not sleeping still the interrupt call will be registered and will wait for the thread to sleep.
+        mt.interrupt(); //here if mt is interrupted if he is sleeping. Note: the InterruptedException will be thrown when the thread gets interrupted.
+
 
     }
 }
