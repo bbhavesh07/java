@@ -159,7 +159,7 @@ public class Multithreading {
                 wteg.wait(10000);    //wait till the updation of total is done(till notified). The max waiting time is 10sec.
             }
         } catch(IllegalMonitorStateException e){}
-        System.out.println("\n" + wteg.total);
+        System.out.println("\nSum of first 100 numbers is " + wteg.total);
 
     }
 }
