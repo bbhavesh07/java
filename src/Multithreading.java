@@ -161,6 +161,27 @@ public class Multithreading {
         } catch(IllegalMonitorStateException e){}
         System.out.println("\nSum of first 100 numbers is " + wteg.total);
 
+        //Daemon is a small and background process. Eg. Garbage collector.
+        //The default priority is 1 but when GC comes into picture(memory problem for a prog). JVM will make GC a 10 priority(highest).
+        //main thread in non daemon and we cannot make it daemon.
+        //If a thread is daemon automatically child threads are daemon unless we change them.
+        //If all non-daemon threads terminates automatically daemon threads terminates.
+        Thread daemon = new Thread(){
+            public void run() {
+                while (true) {
+                    System.out.println("Daemon is still alive");
+                }
+            }
+        };
+        Thread.sleep(13000);
+        daemon.setDaemon(true);
+        daemon.start();
+        System.out.println("Main Terminated");
+
+        //What is green thread --> This is a multithreading model by JVM. where JVM itself handles multi threading. Deprecated model.
+        //The other model is native OS model. Here JVM takes help from OS to manage multithreading.
+        //How to stop thread? --> th.stop(). This is deprecated method. Not recommended to use Because if the thread opens db conn and then stopped the connection would still be alive. and wasted.
+        //suspend() and resume(). Using suspend() thread can be moved to suspended state and won't come to ready/runnable state unless resume() called. Deprecated methods.
     }
 }
 
