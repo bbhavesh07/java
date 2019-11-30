@@ -35,6 +35,15 @@ public class Bhavesh extends AB implements Cloneable{
         return "";
     }
 
+    @Override
+    public String toString() {
+        return "Bhavesh{" +
+                "a=" + a +
+                ", x=" + x +
+                ", b=" + b +
+                '}';
+    }
+
     //Overridden method from Object class which is called after garbage collection is called. System.gc();
    /* public void finalize(){
 
@@ -43,8 +52,9 @@ public class Bhavesh extends AB implements Cloneable{
     public static void main(String args[]) throws CloneNotSupportedException{
         System.out.println(Bhavesh.testBool(Boolean.valueOf(null)));
         Bhavesh b = new Bhavesh(5);
+        System.out.println(b);
         Bhavesh b1 = (Bhavesh)b.clone();
-
+        System.out.println(b1);
 
         AB bb = new AB();
         System.out.println(bb.a);
@@ -71,8 +81,9 @@ public class Bhavesh extends AB implements Cloneable{
         System.out.println(s==s1);
         System.out.println(s==s2);
         System.out.println(new BB("abc").getS() == new AB().getS());
+        System.out.println(s == new String("abc"));
 
-        System.out.println(true || false && false);
+        System.out.println(false || true && false);
 
     }
 }

@@ -1,10 +1,12 @@
+import com.actimize.ais.generated.SYSTEM_CONFIGURATION_Action;
+
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class EnhancedMultiThreading {
     //synchronized keyword introduced deadlock. But there is a concurrent.locks package which has enhanced feature of
     //multithreading which also avoids deadlock.
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception{
         DisplayJob dj = new DisplayJob();
         new Thread(new Runnable() {
             @Override
@@ -19,6 +21,8 @@ public class EnhancedMultiThreading {
                 dj.printWithTryLock("Onkar");
             }
         }).start();
+
+        Thread.sleep(1000);
 
         //There is a thread pool which helps us to manage our threads. Keeps threads in pool which then can be allocated to our job. This improves memory and performance.
         //Just like jdbc connection pool, instead opening a new connection whenever needed and closing it. we have a pool of connection which will be used whenever needed.
@@ -51,6 +55,18 @@ public class EnhancedMultiThreading {
             System.out.println(f.get());
         }catch(Exception e){}
         service.shutdown();
+
+        //ThreadLocal - This is the way in which we can keep a local copy of a data to every thread.
+        //Initial value of threadlocal is null but we can override by overriding the initialValue method.
+        //This also reduces the development overhead of maintaining different values for different threads.
+        //By default child threads does not get access to the parent thread local value.
+        //To achieve this use InheritedtThreadLocal. which then inherits parent thread's local value.
+        ThreadLocalDemo thread1 = new ThreadLocalDemo("Thread-1");
+        ThreadLocalDemo thread2 = new ThreadLocalDemo("Thread-2");
+        ThreadLocalDemo thread3 = new ThreadLocalDemo("Thread-3");
+        thread1.start();
+        thread2.start();
+        thread3.start();
     }
 
 }
@@ -62,7 +78,7 @@ class DisplayJob{
         for (int i = 0; i < 5; i++) {
             System.out.println("GM " + s);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
             }
         }
@@ -74,7 +90,7 @@ class DisplayJob{
             for (int i = 0; i < 5; i++) {
                 System.out.println("GM " + s);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                 }
             }
@@ -90,5 +106,27 @@ class DisplayJob{
 class Printable implements Runnable{
     public void run(){
         System.out.println("Running " +Thread.currentThread().getName());
+    }
+}
+
+class ThreadLocalDemo extends Thread{
+    static ThreadLocal tl = new ThreadLocal(){
+        public Object initialValue(){   //this way we can override the initialvalue rather having null.
+            return "Empty";
+        }
+    };
+
+    ThreadLocalDemo(String name){
+        super(name);
+    }
+
+    public void run(){
+        System.out.println(Thread.currentThread().getName() + " threadLocal value in run() :" +tl.get());
+        normalMethod();
+        tl.set("LocalValue");
+        normalMethod();
+    }
+    public void normalMethod(){
+        System.out.println(Thread.currentThread().getName() + " threadLocal value in normalMethod() :" +tl.get());
     }
 }

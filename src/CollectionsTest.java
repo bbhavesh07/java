@@ -171,7 +171,7 @@ public class CollectionsTest {
 
         //there are also functions like reverse() and reverseOrder()
         //reverse() returns the reverse order of the passed list. while reverserOrder() returns
-        //reversed comparator of originally passed comparator
+        //reversed comparator of originally passed comparatorrew
         Collections.reverse(al);
         System.out.println(al);
         Comparator ct = new Comparator<Double>() {     //please note: this sort method is only for list

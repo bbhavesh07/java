@@ -85,5 +85,21 @@ public class Generics {
 
         //here rather passing adder of specific type, you can do something like T.getClass = Integer.class and so on.
 
+        MyGenerics1<String> myGenerics1 = new MyGenerics1();
+        myGenerics1.print("bhavesh", "bb");
+        new MyGenerics2().<Integer>print(2, 1);
+    }
+}
+
+//Class level generics
+class MyGenerics1<T>{   //bydefault T extends Object if we do not specify explicitly.
+    public void print(T a, T b){
+        System.out.println(a +" "+ b);
+    }
+}
+
+class MyGenerics2{   //Method level generics
+    public <T extends Number> void print(T a, T b){
+        System.out.println(a +" "+ b);
     }
 }
