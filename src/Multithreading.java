@@ -242,3 +242,39 @@ class Display{
         }
     }
 }
+
+
+//How do you make an instance method synchronized for two different objects.
+//Ans: For instance methods the lock is associated with object. So if there are two objects the lock is different for
+//both of them and they can run in parallel. To avoid this and make it synchronized we declare a static object in the
+// class and use it for both the methods. Because the object is static and common to all instances the method is synchronized.
+//eg.
+
+class SynchInstanceMethod implements Runnable{
+
+    private static final Object object = new Object();
+
+    private void m(){
+        synchronized (object) {
+            try {
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + ": in m()");
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void run(){
+        this.m();
+    }
+
+    public static void main(String args[]){
+        Thread t1 = new Thread(new SynchInstanceMethod());
+        Thread t2 = new Thread(new SynchInstanceMethod());
+        t1.setName("Thread 1");
+        t2.setName("Thread 2");
+        t1.start();
+        t2.start();
+    }
+}
