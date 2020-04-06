@@ -96,7 +96,7 @@ public class MapTest {
         htable.put(1,3);
 
         //Properties object internally uses hashtable.
-        //used to story externally configurable properties.
+        //used to store externally configurable properties.
         Properties properties = new Properties();
         properties.load(new FileInputStream("env.properties"));
         System.out.println(properties);

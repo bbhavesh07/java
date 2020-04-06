@@ -16,8 +16,13 @@ public class Streams {
         System.out.println(list.stream().reduce(0, (sum, x) ->sum +x ));
         System.out.println(list.stream().sorted().collect(Collectors.toList()));
 
-
-
+        String line = "1,21,33";
+        List<Integer> ints = Arrays.stream(line.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+        int a[] = ints.stream().mapToInt(x->x).toArray();
+        int arr[] = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
+        System.out.println(Arrays.toString(arr));
     }
 
 }

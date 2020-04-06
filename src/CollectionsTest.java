@@ -11,6 +11,7 @@ public class CollectionsTest {
 
         //best for retrieval.
         ArrayList<Double> al = new ArrayList(10);
+        //System.out.println(al.get(0));
         al.add(10.2);
         System.out.println(al);
 
@@ -102,7 +103,7 @@ public class CollectionsTest {
         //it implements SortedSet and navigable interface. provides lot more methods than hashset.
         //insertion order not maintained, no duplicates. Always stores element in sorted order.
         //most imp non empty treeset will throw RTE when inserted null. Because of the comparator.
-        //If you are creating treeset of some Object. then that object class must implement comparable. For default sorting.
+        //If you are creating treeset of some user def Object. then that object class must implement comparable. For default sorting.
         TreeSet<Integer> ts = new TreeSet<Integer>(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {

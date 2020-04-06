@@ -148,7 +148,7 @@ public class Multithreading {
         //threads can communicate through wait(), notify(), notifyAll() methods. All of these methods are present in Object class.
         //Because those methods can only be called on perticular object.
         //To call any of these method you should have exclusive lock of the object on which you are calling. i.e. within synchronized block.
-        //once wait(), notify(), notifyAll() is called immediately the thread will release the lock of current object(only current obj) and wait goes to waiting state, other methods can continue.
+        //once wait(), notify(), notifyAll() is called immediately the thread will release the lock of current object(only current obj) and wait() goes to waiting state, other methods can continue.
         //other than these methods no other method releases lock before going to waiting state. notify and notifyAll may not immediately release the lock.
         //Here lock is released because, if wait holds the lock notify won't get the lock to perform updation.
         ThreadB wteg = new ThreadB();
@@ -163,7 +163,7 @@ public class Multithreading {
 
         //Daemon is a small and background process. Eg. Garbage collector.
         //The default priority is 1 but when GC comes into picture(memory problem for a prog). JVM will make GC a 10 priority(highest).
-        //main thread in non daemon and we cannot make it daemon.
+        //main thread is non daemon and we cannot make it daemon.
         //If a thread is daemon automatically child threads are daemon unless we change them.
         //If all non-daemon threads terminates automatically daemon threads terminates.
         Thread daemon = new Thread(){

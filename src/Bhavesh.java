@@ -5,18 +5,40 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+
+
+//best way of creating singletons
+//here INSTANCE is the object of Singleton
+enum Singleton{
+    INSTANCE;
+    public void print(){
+        System.out.println("printed");
+    }
+    public int getX(){
+        return 10;
+    }
+}
 
 // Here Cloneable is just like an annotation.
 //It indicates that Object of Bhavesh can be cloned(bitwise: memory copy)
 public class Bhavesh extends AB implements Cloneable{
+    public class a{
+
+    }
     int a;
     final int x;
     boolean b ;
+    //final Bhavesh bhavesh;
     Bhavesh(int a){
         this.a = a;
         this.x  = a;
+        //this.bhavesh=new Bhavesh(6);
         System.out.println(b);
     }
+
+
+
     public Object clone() throws CloneNotSupportedException{
         System.out.println("From clone " +this.a);
         return super.clone();
@@ -85,19 +107,46 @@ public class Bhavesh extends AB implements Cloneable{
 
         System.out.println(false || true && false);
 
+        //It is not necessary to implement Comparable in TreeMapKey object, but then comparator is needed otherwise will throw RTE
+        TreeMap<TreeMapKey, String> map = new TreeMap<TreeMapKey, String>((k1,k2)->k1.val - k2.val);
+        map.put(new TreeMapKey(), "bhavesh");
+
+        Inh1 inh = null;
+        inh.m();
+
     }
 }
 
+class Inh{
+    int x;
+    public static void m(){
+        System.out.println("Inh m");
+    }
+}
+
+class Inh1 extends Inh{
+    {
+        System.out.println(x);
+    }
+    /*public void m(){ //error cannot override static method
+        System.out.println("Inh1 m");
+    }*/
+}
+
+class TreeMapKey{
+    public int val;
+}
 
 class AB implements Comparable<AB>{
-    int a = 10;
+    int a ;
     String s = "abc";
     public String getS(){
+        System.out.println("AB"+a);
         return s;
     }
 
     public int compareTo(AB ab){
-        return 0;
+        return a;
     }
 
 }
