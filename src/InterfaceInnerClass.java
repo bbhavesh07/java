@@ -46,7 +46,7 @@ public class InterfaceInnerClass implements Player{
         Circle c = new Circle(5);
         System.out.println(c.area());
         new InterfaceInnerClass().sport();
-        new Player(){
+        new Player(){ //Anonymous class
             public void sport(){
                 System.out.println("Cricket");
             }

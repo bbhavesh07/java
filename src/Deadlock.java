@@ -9,7 +9,7 @@ public class Deadlock extends Thread{
     A a = new A();
     B b = new B();
     void m1(){
-        this.start(); // start child thread(run at line 12)
+        this.start(); // start child thread(run: at line 16)
         b.d1(a);      // continue in main thread.
     }
 

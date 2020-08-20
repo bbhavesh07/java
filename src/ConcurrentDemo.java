@@ -29,6 +29,7 @@ class ConcurrentDemo extends Thread {
         // We create a child thread
         // that is going to modify
         // ArrayList l.
+        // we don't get exception in concurrent modify.
         ConcurrentDemo t = new ConcurrentDemo();
         t.start();
         System.out.println(l);
@@ -37,13 +38,15 @@ class ConcurrentDemo extends Thread {
 
         // Now we iterate through
         // the ArrayList and get
-        // exception.
+        // elements.
+        //here the iterator is already taken and after that list is modified(by child thread). so iterator doesn't have updated copy.
         Iterator itr = l.iterator();
         while (itr.hasNext()) {
             String s = (String)itr.next();
             System.out.println(s);
-            //Thread.sleep(1000);
+            Thread.sleep(1000);
         }
+        //but the final list is updated
         System.out.println(l);
     }
 }

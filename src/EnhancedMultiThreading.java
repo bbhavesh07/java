@@ -1,11 +1,11 @@
-import com.actimize.ais.generated.SYSTEM_CONFIGURATION_Action;
+
 
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class EnhancedMultiThreading {
     //synchronized keyword introduced deadlock. But there is a concurrent.locks package which has enhanced feature of
-    //multithreading which also avoids deadlock.
+    //multithreading which avoids deadlock.
     public static void main(String args[]) throws Exception{
         DisplayJob dj = new DisplayJob();
         new Thread(new Runnable() {
@@ -24,8 +24,9 @@ public class EnhancedMultiThreading {
 
         Thread.sleep(1000);
 
-        //There is a thread pool which helps us to manage our threads. Keeps threads in pool which then can be allocated to our job. This improves memory and performance.
-        //Just like jdbc connection pool, instead opening a new connection whenever needed and closing it. we have a pool of connection which will be used whenever needed.
+        //There is a thread pool which helps us to manage our threads. Keeps threads in pool which then can be allocated to our job.
+        //This improves memory and performance.
+        //Just like jdbc connection pool, instead opening a new connection whenever needed and closing it. we have a pool of Threads which will be used whenever needed.
         //Automatically calls start method.
         ExecutorService service = Executors.newFixedThreadPool(3); //currently we have 3 active threads in pool which can be used to perform an operation.
         service.submit(new Printable());
@@ -37,7 +38,7 @@ public class EnhancedMultiThreading {
 
         service.shutdown();
 
-        //There is also a thing called Callable. Which is same as Runnable the only diff is callable has call() method istead run() and  can return a value.
+        //There is also a thing called Callable. Which is same as Runnable the only diff is callable has call() method instead run() and  can return a value.
         //returning results of some operation. which then can be caught into object.
         System.out.println(new Callable(){
             public Object call(){
@@ -65,13 +66,19 @@ public class EnhancedMultiThreading {
         ThreadLocalDemo thread2 = new ThreadLocalDemo("Thread-2");
         ThreadLocalDemo thread3 = new ThreadLocalDemo("Thread-3");
         thread1.start();
+        thread1.normalMethod();
+        thread2.normalMethod();
         thread2.start();
         thread3.start();
     }
 
 }
 class DisplayJob{
-    ReentrantLock l = new ReentrantLock();
+    ReentrantLock l = new ReentrantLock(); //it is shared lock, you can use it across all the instance methods.
+    //another way to use same lock for multiple instance methods is create a static final object and synchronize over it.
+    //private static final Object obj = new Object();
+    //Then in any method we can use synchronized(obj)
+    //But reentrant lock is more flexible as you can take a lock in one method and release in another method.
 
     public void print(String s) {
         l.lock(); //similar to using synchronized(this). It can still have a deadlock problem. The flexibility here is l.unlock can also be called in a different method of same class.
@@ -110,8 +117,9 @@ class Printable implements Runnable{
 }
 
 class ThreadLocalDemo extends Thread{
-    static ThreadLocal tl = new ThreadLocal(){
-        public Object initialValue(){   //this way we can override the initialvalue rather having null.
+    static ThreadLocal<String> tl = new ThreadLocal<String>(){
+        @Override
+        public String initialValue(){   //this way we can override the initialvalue rather having null.
             return "Empty";
         }
     };
@@ -122,10 +130,20 @@ class ThreadLocalDemo extends Thread{
 
     public void run(){
         System.out.println(Thread.currentThread().getName() + " threadLocal value in run() :" +tl.get());
-        normalMethod();
-        tl.set("LocalValue");
-        normalMethod();
+        if(Thread.currentThread().getName().equals("Thread-1"))
+            tl.set("LocalValue for Thread-1");
+        else if(Thread.currentThread().getName().equals("Thread-2"))
+            tl.set("LocalValue for Thread-2");
+        else if(Thread.currentThread().getName().equals("Thread-3"))
+            tl.set("LocalValue for Thread-3");
+        try{
+            sleep(100);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.println(Thread.currentThread().getName() + " threadLocal value in run() :" +tl.get());
     }
+
     public void normalMethod(){
         System.out.println(Thread.currentThread().getName() + " threadLocal value in normalMethod() :" +tl.get());
     }

@@ -14,7 +14,7 @@ public class Multithreading {
         }
 
         MyThread mt = new MyThread();
-        mt.start(); //THis is a Thread class utility method, responsible for registering this thread with scheduler(in JVM).
+        mt.start(); //This is a Thread class utility method, responsible for registering this thread with scheduler(in JVM).
                     //Currently thread is in ready state. Once scheduler allocates CPU, it will go to running state.
 
         //approach2 implementation
@@ -75,7 +75,8 @@ public class Multithreading {
         //Synchronization
         //There are two types of synchronization- 1. Object level synchronization(for instance methods). 2. class level synchronization(for static methods).
         //Synchronization uses locking mechanism, every class and every object holds a unique lock.
-        //But then problem is if there are two synchronized instance level methods or two static sync methods in a class then though methods are independent, scheduler can't get exclusive lock(as it is with object or class).
+        //But then problem is if there are two synchronized instance level methods or two static sync methods in a class then though methods are independent,
+        //scheduler can't get exclusive lock(as it is with object or class).
         //And will make either of the thread to wait until one completes.
         //The other problem is when you create a synchronized instance level method and call it on different objects from different threads.
         //Because here the lock is with object it will not actually be synchronized. And both objects will run the method in parallel.
@@ -135,7 +136,8 @@ public class Multithreading {
         Thread.sleep(20000);
 
 
-        //synchronized block--If very few lines of code in a method needs synchronization then no need to declare whole method synchronized. just make that block of code synchronized.
+        //synchronized block--If very few lines of code in a method needs synchronization then no need to declare whole method synchronized.
+        //just make that block of code synchronized.
         //This will improve performance.
         new Thread(){
             public void run(){
@@ -148,7 +150,8 @@ public class Multithreading {
         //threads can communicate through wait(), notify(), notifyAll() methods. All of these methods are present in Object class.
         //Because those methods can only be called on perticular object.
         //To call any of these method you should have exclusive lock of the object on which you are calling. i.e. within synchronized block.
-        //once wait(), notify(), notifyAll() is called immediately the thread will release the lock of current object(only current obj) and wait() goes to waiting state, other methods can continue.
+        //once wait(), notify(), notifyAll() is called immediately the thread will release the lock of current object(only current obj)
+        //and wait() goes to waiting state, other methods can continue.
         //other than these methods no other method releases lock before going to waiting state. notify and notifyAll may not immediately release the lock.
         //Here lock is released because, if wait holds the lock notify won't get the lock to perform updation.
         ThreadB wteg = new ThreadB();
@@ -230,7 +233,7 @@ class Display{
         for(int i = 0; i < 10; i++){
             arr[i] = i*i;
         }
-        synchronized (this){        //In this example only printing of squares is synchronized and not calculating squares. Calculation of squares can be performed by multiple threads in paralle.
+        synchronized (this){        //In this example only printing of squares is synchronized and not calculating squares. Calculation of squares can be performed by multiple threads in parallel.
                                     //Synchornized(someObject) eg. Synchornized(new Display()) or Synchronized(Display.class) is also correct for diff objects and class lock.
             for(int i = 0; i < 10; i++){
                 System.out.print(arr[i]);
@@ -248,6 +251,8 @@ class Display{
 //Ans: For instance methods the lock is associated with object. So if there are two objects the lock is different for
 //both of them and they can run in parallel. To avoid this and make it synchronized we declare a static object in the
 // class and use it for both the methods. Because the object is static and common to all instances the method is synchronized.
+//Another way of achieving this is synchronized(ClassName.class) as for each class there is only one metadata object.
+//But then make sure that there is no static method otherwise the same lock will be shared with static methods.
 //eg.
 
 class SynchInstanceMethod implements Runnable{

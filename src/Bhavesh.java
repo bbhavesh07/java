@@ -8,20 +8,11 @@ import java.util.List;
 import java.util.TreeMap;
 
 
-//best way of creating singletons
-//here INSTANCE is the object of Singleton
-enum Singleton{
-    INSTANCE;
-    public void print(){
-        System.out.println("printed");
-    }
-    public int getX(){
-        return 10;
-    }
-}
-
 // Here Cloneable is just like an annotation.
 //It indicates that Object of Bhavesh can be cloned(bitwise: memory copy)
+//For reference variables it is shallow copy(only ref is copied) and will still point to same object.
+// For non ref(primitive) it is deep copy.(content copy).
+// To implement deep copy for reference create a new object inside clone and assign it to the returning object.
 public class Bhavesh extends AB implements Cloneable{
     public class a{
 
@@ -71,7 +62,7 @@ public class Bhavesh extends AB implements Cloneable{
 
     }*/
 
-    public static void main(String args[]) throws CloneNotSupportedException{
+    public static void main(String args[]) throws Exception{
         System.out.println(Bhavesh.testBool(Boolean.valueOf(null)));
         Bhavesh b = new Bhavesh(5);
         System.out.println(b);
@@ -100,6 +91,7 @@ public class Bhavesh extends AB implements Cloneable{
         String s1 = "abc";
 
         String s2 = new AB().getS();
+        System.out.println("s == s1");
         System.out.println(s==s1);
         System.out.println(s==s2);
         System.out.println(new BB("abc").getS() == new AB().getS());
@@ -108,13 +100,22 @@ public class Bhavesh extends AB implements Cloneable{
         System.out.println(false || true && false);
 
         //It is not necessary to implement Comparable in TreeMapKey object, but then comparator is needed otherwise will throw RTE
+        //Also no need of hashcode and eqauls as there is no hashing here.
         TreeMap<TreeMapKey, String> map = new TreeMap<TreeMapKey, String>((k1,k2)->k1.val - k2.val);
         map.put(new TreeMapKey(), "bhavesh");
 
         Inh1 inh = null;
         inh.m();
 
+
+        int[][] x = new int[2][];   //please note in 1D arrays it is compulsory to provide size
+        System.out.println(x.length); // this is 2
+        //System.out.println(x[0].length); //this is null pointer exception
+
+        int[] y = new int[0]; // This is possible. It is  an array which cannot store any element, useful to avoid null checks
+        //System.out.println(Class.forName("String").getName());
     }
+
 }
 
 class Inh{

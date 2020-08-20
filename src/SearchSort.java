@@ -36,7 +36,7 @@ public class SearchSort {
         Collections.reverse(list);
         System.out.println(list);
 
-        //binary search: It works only if the collection is in asc sorted
+        //binary search: It works only if the collection is sorted
 
         System.out.println("Found at " + Arrays.binarySearch(arr, "Komal"));
         System.out.println("Could have inserted at " +-1 *Arrays.binarySearch(arr, "Chinmay"));

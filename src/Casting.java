@@ -7,6 +7,7 @@ public class Casting {
         A1 a1 = new A1();
         //A2 a2 = (A2) a1; //RTE: ClassCastException: A1 cannot be cast to A2.
         //a2.m();
+
     }
 }
 
@@ -15,6 +16,15 @@ class A1{
 }
 
 class A2 extends A1{
+    static{
+        System.out.println("static block");
+    }
+    {
+        System.out.println("instance block");
+    }
+    A2(){
+        System.out.println("constructor");
+    }
     public void m(){
         System.out.println("A2 m");
     }

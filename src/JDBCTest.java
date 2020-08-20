@@ -3,8 +3,8 @@ import java.util.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import org.apache.tomcat.jdbc.pool.DataSource;
-import org.apache.tomcat.jdbc.pool.PoolProperties;
+//import org.apache.tomcat.jdbc.pool.DataSource;
+//import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 public class JDBCTest {
     public static void main(String a[])
@@ -14,7 +14,7 @@ public class JDBCTest {
     }
 
 
-    public static void testTomcatJdbcConnPool(){
+    /*public static void testTomcatJdbcConnPool(){
         //tomcat jdbc connection pool
 
         PoolProperties p = new PoolProperties();
@@ -60,7 +60,7 @@ public class JDBCTest {
             if (con!=null) try {con.close();}catch (Exception ignore) {}
         }
     }
-
+*/
     public static void testPlainJdbcConn() {
         //Creating the connection
         String url = "jdbc:oracle:thin:@ACT-DB-003639.voicelab.local:1521/ORCL";
@@ -180,7 +180,8 @@ public class JDBCTest {
         Connection con=null;
         try
         {
-            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+            //uncomment below line to run
+            //DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 
             //Reference to connection interface
             con = DriverManager.getConnection(url,user,pass);

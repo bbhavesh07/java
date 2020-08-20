@@ -77,3 +77,11 @@ It recursively writes out the description of the superclass until it finds java.
 Once it finishes writing the metadata information, it then starts with the actual data associated with the instance. But this time, it starts from the topmost superclass.
 It recursively writes the data associated with the instance, starting from the least superclass to the most-derived class.
  */
+
+
+//What is readResolve()
+//the readResolve method, which is called when preparing the deserialized object before returning it to the caller.
+//SO if you want to just block the original deserialization logic and do something special override this method.
+// readObject() is used to read serialized object in your own way but after reading Object this method is called to return
+// read object to the caller.
+// so this is the easiest way to block de serialization.

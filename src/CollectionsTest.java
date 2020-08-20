@@ -5,7 +5,7 @@ public class CollectionsTest {
         HashMap map = new HashMap<String, Integer>();
         map.put("Bhavesh",2);
         System.out.println(map.get(null));
-        map.put(2,"BB");       //THis is possible because the map declaration at line 5 is default(<Object,Object>) if you make it specific to some data type(left side of decl). It will throw error.
+        map.put(2,"BB");       //This is possible because the map declaration at line 5 is default(<Object,Object>) if you make it specific to some data type(left side of decl). It will throw error.
         System.out.println(map);
         //int x = map.get("Bhavesh");
 
@@ -13,6 +13,7 @@ public class CollectionsTest {
         ArrayList<Double> al = new ArrayList(10);
         //System.out.println(al.get(0));
         al.add(10.2);
+        //al.get(3); //index out of bound exception
         System.out.println(al);
 
         //best for insertion and removal in between list.
@@ -83,7 +84,7 @@ public class CollectionsTest {
         System.out.println(l);
 
 
-        //no insertion order, no duplicates, internally uses hashmap to story element. key is eleme and value is empty object(default)
+        //no insertion order, no duplicates, internally uses hashmap to story element. key is elem and value is empty object(default), same for all keys.
         HashSet<Integer> hs = new HashSet<>();
         hs.add(1);
         hs.add(3);
@@ -104,6 +105,7 @@ public class CollectionsTest {
         //insertion order not maintained, no duplicates. Always stores element in sorted order.
         //most imp non empty treeset will throw RTE when inserted null. Because of the comparator.
         //If you are creating treeset of some user def Object. then that object class must implement comparable. For default sorting.
+        // equals and hashcode are not necessary
         TreeSet<Integer> ts = new TreeSet<Integer>(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
@@ -121,6 +123,8 @@ public class CollectionsTest {
 
         //PriorityQueue, One of the most common implementation of Queue.
         //default priority is FCFS. Priority can be specified using comparator.
+        //Always remember queue and stack are size bounded, meaning if size is 10 they can only store 10 elements
+        //unlike other collections the size won't be increased once filled.
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>(15, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
@@ -171,11 +175,11 @@ public class CollectionsTest {
         System.out.println(Collections.binarySearch(al,10.2));
 
         //there are also functions like reverse() and reverseOrder()
-        //reverse() returns the reverse order of the passed list. while reverserOrder() returns
-        //reversed comparator of originally passed comparatorrew
+        //reverse() returns the reverse order of the passed list. while reverseOrder() returns
+        //reversed comparator of originally passed comparator
         Collections.reverse(al);
         System.out.println(al);
-        Comparator ct = new Comparator<Double>() {     //please note: this sort method is only for list
+        Comparator ct = new Comparator<Double>() {
             @Override
             public int compare(Double o1, Double o2) {
                 return (o1.intValue() - o2.intValue());
