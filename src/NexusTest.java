@@ -150,7 +150,7 @@ height 3
 curr = 30;
 
 
-
+//give level order, find min steps to convert it to bst
 5 6 7 8 9 10 11
 
 8 6 10 5 7 9 11
