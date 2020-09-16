@@ -17,3 +17,11 @@ where departments.row_num in (1,2,3);
   LIMIT filters on the remaining rows/groups
 
 -- Here please note that LIMIT and rownum are executed at last. though you write rownum < n in where clause.
+
+
+-- count values from same column without group by
+SELECT
+  COUNT(CASE WHEN gender = 'M' THEN User_id END) AS males,
+  COUNT(CASE WHEN gender = 'F' THEN User_id END) AS females,
+  COUNT(*) AS Total
+FROM User;

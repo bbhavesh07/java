@@ -188,6 +188,7 @@ public class Multithreading {
     }
 }
 
+
 class ThreadB extends Thread{
     int total = 0;
     public void run() {

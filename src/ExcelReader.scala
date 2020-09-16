@@ -34,3 +34,25 @@ object ExcelReader{
     unusedSlices()
   }
 }*/
+
+object solution {
+  def solve(s: String,t: String) :String = {
+    var i = 0
+    for(c <- t){
+      i = s.indexOf(c, i)
+      if(i == -1) {
+        return "NO"
+      }
+    }
+    return "YES"
+  }
+  def main(args: Array[String]): Unit = {
+    val in = scala.io.StdIn
+    val n = in.readInt()
+    for (_ <- 0 until n) {
+      val s = in.readLine()
+      val t = in.readLine()
+      println(solve(s, t))
+    }
+  }
+}

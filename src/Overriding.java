@@ -17,6 +17,9 @@ public class Overriding {
 }
 
 class Class2 extends Overriding{
+    public void m(){
+        System.out.println("m()");
+    }
     public void m(int x){   //this is method overloading as m() is inherited from parent class.
         System.out.println("m() returns int");
     }
