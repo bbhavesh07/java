@@ -1,0 +1,149 @@
+class Calculator{
+	public void add(long a, int b){
+		System.out.println(a+b);
+	}
+
+	public int add(double a, int b){
+		return a+b;
+	}
+	main(){
+		Calculator c = new Calculator();
+		c.add(1,2);
+	}
+}
+
+class Television{
+	public void display(String s){
+		sout(s);
+	}
+	public void display(Object s){
+		sout(s);
+	}
+
+	main(){
+		Television t = new Television();
+		Object o = new String("Bhavesh");
+		t.display(null);
+	}
+}
+
+class Parent{
+	private int a;
+	Parent(int a){}
+	void m1(){
+		sout("parent m1");
+	}
+	void m3(){
+		sout("parent m3");
+	}
+}
+
+class Child extends Parent{
+	int a;
+	Child(int a){
+		super(a);
+	}
+	void m1(){
+
+		sout("Child m1" +super.a);
+	}
+	void m2(){
+		sout("Child m2");
+	}
+	main(){
+		Child c = new Child();
+
+}
+
+Child() -> Parent()->Object()
+
+
+class Person{
+	String name;
+	int age;
+	Person(String name, int age){
+		this.name = name;
+		this.age = age;
+	}
+	public int hashcode(){
+
+		return this.name.hashcode() + this.age ;
+	}
+
+	public boolean equals(Person p){
+		if(p==null)
+			return false;
+		if(this.age == p.age){
+			return this.name.equals(p.name);
+		}
+		return false;
+	}
+}
+
+Set<Person> set = new LinkedHashSet();
+
+Person p1 = new Person("Bhavesh", 25);
+Person p2 = new Person("Ram", 26);
+Person p3 = new Person("Laxman", 27);
+
+set.add(p1);
+set.add(p2);
+set.add(p3);
+sout(set);
+
+
+Set<Person> sortedset = new TreeSet<Person>((a,b)->a.age == b.age ? a.name.compareTo(b.name) : a.age-b.age);
+
+sortedset.add(p1);
+sortedset.add(null);
+
+
+class Test{
+	public void test() throws ChildException{
+	}
+
+	public void add(List<String> list){
+		sout(list);
+		//list = new ArrayList();
+		list.removeAll();
+		sout(list);
+	}
+
+
+	main(){
+		Test t = new Test();
+
+		List<String> list = new ArrayList();
+		list.add("Bhavesh");
+		list.add("Ram");
+		list.add("Laxman");
+		sout(list);
+		t.add(list);
+		sout(list);
+
+
+		try{
+			t.test();
+		}
+		catch(Exception c){
+			sout(c.getMessage());
+			return;
+		}
+		catch(ParentException c){
+			sout(c.getMessage());
+			return;
+		}
+		catch(ChildException c){
+			sout(c.getMessage());
+			return;
+		}
+		finally{
+			sout("finally");
+			return;
+		}
+
+	}
+
+
+
+
