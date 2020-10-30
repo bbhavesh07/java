@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +25,12 @@ public class Streams {
         int a[] = ints.stream().mapToInt(x->x).toArray();
         int arr[] = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
         System.out.println(Arrays.toString(arr));
+        AtomicInteger cnt = new AtomicInteger(0);
+        list.stream().forEach(x-> cnt.getAndIncrement());
     }
 
 }
+
+//what is effective final
+//Something which is not stored on stack. Eg. any object.
+//local variables needs to be final to be used in streams or anonymous class but instance variable can directly be used.

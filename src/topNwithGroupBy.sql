@@ -25,3 +25,14 @@ SELECT
   COUNT(CASE WHEN gender = 'F' THEN User_id END) AS females,
   COUNT(*) AS Total
 FROM User;
+
+
+--rank() function in mysql
+--diff between rank and row_number() is rank gives same seq number to 2 or more records having same value.
+--eg. val rank
+        1   1
+        2   2
+        2   2
+        3   4
+--select 3rd highest salary
+select rank() over (order by salary desc) rank salary from employee where rank = 3;
