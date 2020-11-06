@@ -1,0 +1,31 @@
+
+Design patterns
+SOLID
+
+Explain different layers in micro services
+
+How authentication is implemented in soap based and rest api.
+How to configure load balancing
+security in spring app
+https://www.baeldung.com/spring-tutorial
+why object of abstract class is needed.
+real life example where abstract class is used.
+
+implement default method in interface
+why static and default keywords in 8 interface
+
+
+computer fundamentals -> indiabix
+
+
+how to solve a super matrix.
+a.b exor a.c ....
+how to solve rgb number.
+find max possible number by swapping same color number.
+
+TRANSACTION MANAGEMENT IN SPRING Available in linkedin learning
+
+Functional Interface
+Handling exceptions in lambda
+
+
